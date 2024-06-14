@@ -5,7 +5,7 @@ DEBUG_MODE=F
 
 # Compilateur et options de compilation par défaut
 CC="/usr/bin/gcc"
-CFLAGS="-std=c99 -pedantic -Werror -Wall -Wextra -Wvla"
+CFLAGS="-std=c99 -pedantic -Wall -Wextra -Wvla"
 LDFLAGS=
 
 # Commandes de hachage

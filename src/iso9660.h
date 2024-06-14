@@ -113,4 +113,34 @@ struct iso_prim_voldesc
     uint8_t filestrutc_version; // File Structure Version (1)
 } __attribute__((packed));
 
+//Fonctions
+
+void afficher_help();
+
+void afficher_info();
+
+void lister_repertoire();
+
+void changer_repertoire(char *nom_repertoire);
+
+void afficher_tree();
+
+void get_fichier(char *nom_fichier);
+
+void cat(char *nom_fichier);
+
+void afficher_pwd();
+
+void quit_programme();
+
+void traiter_commande(char *commande);
+
+bool verifier_fichier_iso(const char *nom_fichier);
+
+void lire_bloc(int fd, uint32_t num_bloc, void *buffer, size_t taille);
+
+struct iso_dir *trouver_entree_repertoire(const char *nom);
+
+void extraire_fichier(struct iso_dir *entree, const char *nom_fichier);
+
 #endif // !ISO9660_H
