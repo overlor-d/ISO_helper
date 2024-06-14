@@ -1,0 +1,52 @@
+#! /bin/sh
+
+# Par défaut, mode débogage désactivé
+DEBUG_MODE=F
+
+# Compilateur et options de compilation par défaut
+CC="/usr/bin/gcc"
+CFLAGS="-std=c99 -pedantic -Werror -Wall -Wextra -Wvla"
+LDFLAGS=
+
+# Commandes de hachage
+MD5="openssl dgst -md5"
+SHA1="openssl dgst -sha1"
+SHA256="openssl dgst -sha256"
+
+# Parcourir les arguments en ligne de commande
+while [ $# -gt 0 ]; do
+    ARG_BRUT=$1
+    ARG=$(echo "${ARG_BRUT}" | tr '[:lower:]' '[:upper:]')
+    if [ "${ARG}" = "DEBUG" ]; then
+        DEBUG_MODE=T
+    fi
+    shift
+done
+
+# Modifier les options si le mode débogage est activé
+if [ "${DEBUG_MODE}" = "T" ]; then
+    CFLAGS="${CFLAGS} -g -ggdb"
+fi
+
+# Écrire les paramètres dans Makefile.rules
+echo "CC=${CC}" > Makefile.rules
+echo "CFLAGS=${CFLAGS}" >> Makefile.rules
+echo "LDFLAGS=${LDFLAGS}" >> Makefile.rules
+echo "MD5=${MD5}" >> Makefile.rules
+echo "SHA1=${SHA1}" >> Makefile.rules
+echo "SHA256=${SHA256}" >> Makefile.rules
+
+# Afficher le mode actuel
+if [ "${DEBUG_MODE}" = "T" ]; then
+    echo "DEBUG mode"
+else
+    echo "RELEASE mode"
+fi
+
+# Afficher les paramètres utilisés
+echo "CC=${CC}"
+echo "CFLAGS=${CFLAGS}"
+echo "LDFLAGS=${LDFLAGS}"
+echo "MD5=${MD5}"
+echo "SHA1=${SHA1}"
+echo "SHA256=${SHA256}"
